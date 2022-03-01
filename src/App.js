@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useeffect, useEffect } from 'react'
 
-function App() {
+export default function App() {
+  const [resourceType, setResourceType] = useState('posts')
+
+  useEffect(() => {
+    console.log('resource changed')
+
+    return () => {
+      console.log('return from ressource change')
+    }
+  }, [resourceType])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <>
+      <div>
+        <button onClick={() => setResourceType('posts')}>Posts</button>
+        <button onClick={() => setResourceType('users')}>Users</button>
+        <button onClick={() => setResourceType('comments')}>Comments</button>
+      </div>
+      <h1>{resourceType}</h1>
 
-export default App;
+    </>
+  )
+}
+/*
+  basically the best way to think about useEffect hook is that any time that we want to have a side effect
+whether its your component mounts, when it unmounts, when a variable changes when a state changes , when props 
+changes or when anything updates and we want to do something this is what useEffect is going to be used for.
+ */
